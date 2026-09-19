@@ -23,12 +23,12 @@ theme_choice = st.sidebar.selectbox(
 
 input_mode = st.sidebar.radio("Input Method:", ["⚡ Quick Paste (Auto-Arrange)", "✍️ Edit Single Fields"])
 
-# Preloaded genuine details
-default_paste = """FULL NAME: NURHANISAH RAHIM
-CONTACT: Petaling Jaya, Selangor | +6013-757 1290 | nrniesa@gmail.com | linkedin.com/in/nurhanisah-rahim
+# Generic sanitized default template
+default_paste = """FULL NAME: FIRSTNAME LASTNAME
+CONTACT: City, State | +6012-000 0000 | user.name@email.com | linkedin.com/in/username
 
 PROFESSIONAL SUMMARY:
-Results-driven IT Support and Operations Specialist with a Diploma in IT and currently completing a Bachelor of Information Technology. Combines Tier-1 remote technical troubleshooting expertise from VADS Berhad with rigorous commercial administration, CRM tracking, and client relations experience. Proven record of resolving complex technical inquiries, executing accurate documentation, and delivering high-touch customer support. Fully autonomous, self-directed, and equipped for remote/work-from-home operations.
+Results-driven IT Support and Operations Specialist with a background in Information Technology. Combines Tier-1 remote technical troubleshooting expertise with commercial administration, CRM tracking, and client relations experience. Proven record of resolving technical inquiries, executing accurate documentation, and delivering high-touch customer support. Fully autonomous, self-directed, and equipped for remote operations.
 
 CORE COMPETENCIES:
 • Technical Support: Tier-1 Troubleshooting, Remote Helpdesk Operations, Hardware & Software Diagnostics, Network Connectivity
@@ -37,41 +37,41 @@ CORE COMPETENCIES:
 • Languages: Professional Working Proficiency in English and Bahasa Melayu (Written & Verbal)
 
 PROFESSIONAL EXPERIENCE:
-Ortho Dynamics Sdn. Bhd. | Sales Executive | April 2024 – March 2026
-- Administered commercial workflows by generating precise sales quotations, purchase orders, and technical instrumentation logs.
-- Provided specialized product consultation on medical devices to surgical teams, coordinating equipment setups under strict clinical standards.
-- Maintained institutional key client accounts, consistently securing renewals and supporting departmental revenue targets.
+Enterprise Operations Sdn. Bhd. | Commercial / Sales Executive | April 2024 – Present
+- Administered commercial workflows by generating precise sales quotations, purchase orders, and technical logs.
+- Provided specialized product consultation on technical devices, coordinating setups under strict operational standards.
+- Maintained institutional key client accounts, consistently securing renewals and supporting departmental targets.
 
-Vegeta Food Industries Sdn. Bhd. | Sales Representative | 2019 – 2020
+Regional Distribution Corp. | Accounts & Operations Representative | 2019 – 2020
 - Handled general trade client accounts, resolving billing discrepancies, product returns, and logistics inquiries promptly.
 - Executed daily payment collections, reconciled customer statements, and onboarded new retail accounts across regional territories.
 
-Oxyhin Sdn. Bhd. | Laboratory Assistant | 2015 – 2019
-- Executed quality-control evaluations and precision color-matching procedures in strict alignment with compliance standards.
-- Maintained comprehensive testing documentation and collaborated with R&D teams during new material formulations.
+Technical Services Ltd. | Quality / Operations Assistant | 2015 – 2019
+- Executed quality-control evaluations and standardized testing procedures in strict compliance with safety regulations.
+- Maintained comprehensive testing documentation and collaborated with teams during procedural trials.
 
-VADS Berhad | Customer Service / IT Support Representative | 2014
-- Delivered remote Tier-1 technical assistance for Streamyx broadband users, resolving hardware, router, and connection faults.
+Global Communications Support | Customer Support & IT Helpdesk | 2014
+- Delivered remote Tier-1 technical assistance for network users, resolving hardware, router, and connection faults.
 - Guided non-technical end-users step-by-step through network diagnostics, achieving rapid first-contact resolution metrics.
 - Documented support cases, escalations, and troubleshooting outcomes accurately within ticketing databases.
 
 EDUCATION:
-• Bachelor of Information Technology | Malaysia University of Science & Technology (MUST) | 2025 – Present
-• Diploma in Information Technology | International College of Yayasan Melaka | 2010 – 2014
-• Sijil Pelajaran Malaysia (SPM) | SM Teknik Jasin, Melaka | 2007 – 2008
+• Bachelor of Information Technology | University Name | Current
+• Diploma in Information Technology | College Name | Graduated
+• Sijil Pelajaran Malaysia (SPM) | Secondary School Name | Completed
 """
 
 # -------------------------------------------------------------
-# ROBUST PARSING LOGIC
+# PARSING LOGIC
 # -------------------------------------------------------------
 if input_mode == "⚡ Quick Paste (Auto-Arrange)":
     raw_text = st.sidebar.text_area("Paste / Edit All Info Here:", default_paste, height=360)
 
     name_m = re.search(r"FULL NAME:\s*(.*)", raw_text, re.IGNORECASE)
-    name = name_m.group(1).strip() if name_m else "NURHANISAH RAHIM"
+    name = name_m.group(1).strip() if name_m else "FIRSTNAME LASTNAME"
 
     contact_m = re.search(r"CONTACT:\s*(.*)", raw_text, re.IGNORECASE)
-    contact_line = contact_m.group(1).strip() if contact_m else "Petaling Jaya, Selangor | +6013-757 1290 | nrniesa@gmail.com"
+    contact_line = contact_m.group(1).strip() if contact_m else "City, State | +6012-000 0000 | user.name@email.com"
 
     summary_m = re.search(r"(?:PROFESSIONAL\s+)?SUMMARY:\s*\n(.*?)(?=\n[A-Z\s]{4,}:|\Z)", raw_text, re.DOTALL | re.IGNORECASE)
     summary_text = summary_m.group(1).strip() if summary_m else ""
@@ -104,9 +104,9 @@ if input_mode == "⚡ Quick Paste (Auto-Arrange)":
                 education.append(clean)
 
 else:
-    name = st.sidebar.text_input("Full Name", "NURHANISAH RAHIM")
-    contact_line = st.sidebar.text_input("Contact", "Petaling Jaya, Selangor | +6013-757 1290 | nrniesa@gmail.com | linkedin.com/in/nurhanisah-rahim")
-    summary_text = st.sidebar.text_area("Summary", "Results-driven IT Support and Operations Specialist with a Diploma in IT and currently completing a Bachelor of Information Technology.", height=90)
+    name = st.sidebar.text_input("Full Name", "FIRSTNAME LASTNAME")
+    contact_line = st.sidebar.text_input("Contact", "City, State | +6012-000 0000 | user.name@email.com | linkedin.com/in/username")
+    summary_text = st.sidebar.text_area("Summary", "Results-driven IT Support and Operations Specialist with a background in Information Technology. Combines Tier-1 remote troubleshooting expertise with commercial administration, CRM tracking, and client relations experience.", height=90)
     competencies = [
         "Technical Support: Tier-1 Troubleshooting, Remote Helpdesk Operations, Hardware/Software Diagnostics",
         "Administration & Systems: MS Office Suite (Excel, Word, PowerPoint), Order Processing, Data Verification",
@@ -114,16 +114,16 @@ else:
         "Languages: Professional Working Proficiency in English and Bahasa Melayu"
     ]
     jobs = [
-        {"header": "Ortho Dynamics Sdn. Bhd. | Sales Executive | April 2024 – March 2026", "bullets": ["Administered commercial workflows and quotations.", "Provided product consultation on medical devices."]},
-        {"header": "VADS Berhad | Customer Service / IT Support | 2014", "bullets": ["Delivered remote Tier-1 technical assistance.", "Achieved first-contact resolution."]}
+        {"header": "Enterprise Operations Sdn. Bhd. | Commercial / Sales Executive | April 2024 – Present", "bullets": ["Administered commercial workflows and quotations.", "Provided product consultation on technical devices."]},
+        {"header": "Global Communications Support | Customer Support & IT Helpdesk | 2014", "bullets": ["Delivered remote Tier-1 technical assistance.", "Achieved first-contact resolution."]}
     ]
     education = [
-        "Bachelor of Information Technology | MUST | 2025 – Present",
-        "Diploma in Information Technology | International College of Yayasan Melaka | 2010 – 2014"
+        "Bachelor of Information Technology | University Name | Current",
+        "Diploma in Information Technology | College Name | Graduated"
     ]
 
 # -------------------------------------------------------------
-# EXACT A4 CSS SHEET SPECIFICATION (210mm x 297mm)
+# BALANCED A4 CSS (Calibrated for Proportional Vertical Fill)
 # -------------------------------------------------------------
 base_css = """
 @page {
@@ -147,7 +147,7 @@ base_css = """
         border: none !important;
         box-shadow: none !important;
         margin: 0 !important;
-        padding: 9mm 12mm !important;
+        padding: 12mm 14mm !important;
         page-break-after: avoid !important;
         page-break-inside: avoid !important;
     }
@@ -166,19 +166,20 @@ body {
     max-height: 297mm;
     margin: 10px auto;
     background: #ffffff;
-    padding: 9mm 12mm;
+    padding: 12mm 14mm;
     box-sizing: border-box;
     overflow: hidden;
     border: 1px solid #cbd5e1;
     box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 p, ul { margin: 0; padding: 0; }
-li { margin-bottom: 2px; }
-ul { padding-left: 17px; }
+li { margin-bottom: 3.5px; }
+ul { padding-left: 18px; }
 .job-header {
     font-weight: bold;
-    margin-top: 4px;
-    font-size: 8.8pt;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-size: 9.6pt;
     display: flex;
     justify-content: space-between;
 }
@@ -200,42 +201,42 @@ ul { padding-left: 17px; }
 
 if theme_choice == "Corporate ATS Standard":
     theme_css = base_css + """
-    body { font-family: 'Times New Roman', Times, serif; color: #111; line-height: 1.23; font-size: 9.3pt; }
-    h1 { font-size: 16.5pt; font-weight: bold; text-align: center; margin: 0 0 2px 0; letter-spacing: 0.5px; text-transform: uppercase; }
-    .contact { text-align: center; font-size: 8.5pt; margin-bottom: 7px; color: #333; }
-    h2 { font-size: 9.8pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #111; padding-bottom: 1px; margin: 6px 0 3px 0; letter-spacing: 0.3px; }
+    body { font-family: 'Times New Roman', Times, serif; color: #111; line-height: 1.34; font-size: 9.8pt; }
+    h1 { font-size: 18pt; font-weight: bold; text-align: center; margin: 0 0 3px 0; letter-spacing: 0.5px; text-transform: uppercase; }
+    .contact { text-align: center; font-size: 9pt; margin-bottom: 10px; color: #333; }
+    h2 { font-size: 10.5pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #111; padding-bottom: 2px; margin: 10px 0 4px 0; letter-spacing: 0.4px; }
     """
 elif theme_choice == "Modern Operations":
     theme_css = base_css + """
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #1e293b; line-height: 1.24; font-size: 9pt; }
-    h1 { font-size: 17pt; font-weight: 700; color: #0f172a; margin: 0 0 2px 0; }
-    .contact { font-size: 8.3pt; margin-bottom: 7px; color: #475569; }
-    h2 { font-size: 9.3pt; font-weight: 700; text-transform: uppercase; color: #1e40af; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 1.5px; margin: 6px 0 3px 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #1e293b; line-height: 1.34; font-size: 9.5pt; }
+    h1 { font-size: 18pt; font-weight: 700; color: #0f172a; margin: 0 0 3px 0; }
+    .contact { font-size: 8.8pt; margin-bottom: 10px; color: #475569; }
+    h2 { font-size: 10pt; font-weight: 700; text-transform: uppercase; color: #1e40af; border-bottom: 1.5px solid #cbd5e1; padding-bottom: 2px; margin: 9px 0 4px 0; }
     """
 elif theme_choice == "Compact Tech":
     theme_css = base_css + """
-    body { font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; color: #000; line-height: 1.18; font-size: 9pt; }
-    h1 { font-size: 16pt; font-weight: bold; margin: 0 0 1px 0; }
-    .contact { font-size: 8.2pt; margin-bottom: 6px; color: #333; }
-    h2 { font-size: 9.2pt; font-weight: bold; text-transform: uppercase; background-color: #f1f5f9; padding: 2px 4px; margin: 5px 0 2px 0; }
+    body { font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; color: #000; line-height: 1.3; font-size: 9.6pt; }
+    h1 { font-size: 17pt; font-weight: bold; margin: 0 0 2px 0; }
+    .contact { font-size: 8.8pt; margin-bottom: 8px; color: #333; }
+    h2 { font-size: 9.8pt; font-weight: bold; text-transform: uppercase; background-color: #f1f5f9; padding: 3px 5px; margin: 8px 0 4px 0; }
     """
 elif theme_choice == "Executive Serif":
     theme_css = base_css + """
-    body { font-family: Georgia, 'Times New Roman', serif; color: #1e293b; line-height: 1.25; font-size: 9pt; }
-    h1 { font-size: 17pt; font-weight: normal; text-align: center; margin: 0 0 2px 0; letter-spacing: 1px; color: #0f172a; }
-    .contact { text-align: center; font-size: 8.2pt; margin-bottom: 7px; color: #64748b; font-style: italic; }
-    h2 { font-size: 9.5pt; font-weight: bold; text-transform: uppercase; text-align: center; border-bottom: 1px solid #94a3b8; padding-bottom: 1.5px; margin: 6px 0 3px 0; letter-spacing: 0.8px; color: #334155; }
+    body { font-family: Georgia, 'Times New Roman', serif; color: #1e293b; line-height: 1.34; font-size: 9.6pt; }
+    h1 { font-size: 18pt; font-weight: normal; text-align: center; margin: 0 0 3px 0; letter-spacing: 1px; color: #0f172a; }
+    .contact { text-align: center; font-size: 8.8pt; margin-bottom: 10px; color: #64748b; font-style: italic; }
+    h2 { font-size: 10.2pt; font-weight: bold; text-transform: uppercase; text-align: center; border-bottom: 1px solid #94a3b8; padding-bottom: 2px; margin: 9px 0 4px 0; letter-spacing: 0.8px; color: #334155; }
     """
 else:  # Modern Two-Column (Sidebar)
     theme_css = base_css + """
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #1e293b; line-height: 1.22; font-size: 8.7pt; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #1e293b; line-height: 1.32; font-size: 9.2pt; }
     .page-container { padding: 0 !important; display: flex; flex-direction: row; height: 297mm; }
-    .sidebar-panel { width: 33%; background-color: #f8fafc; border-right: 1px solid #e2e8f0; padding: 9mm 7mm; box-sizing: border-box; }
-    .main-panel { width: 67%; padding: 9mm 9mm; box-sizing: border-box; }
-    h1 { font-size: 15pt; font-weight: 800; color: #0f172a; margin: 0 0 3px 0; line-height: 1.1; }
-    .side-title { font-size: 9pt; font-weight: 700; text-transform: uppercase; color: #0284c7; border-bottom: 1px solid #cbd5e1; padding-bottom: 1.5px; margin: 10px 0 4px 0; }
-    .main-title { font-size: 9.4pt; font-weight: 700; text-transform: uppercase; color: #0f172a; border-bottom: 1.5px solid #0284c7; padding-bottom: 1.5px; margin: 6px 0 3px 0; }
-    .side-item { margin-bottom: 5px; font-size: 8.2pt; }
+    .sidebar-panel { width: 34%; background-color: #f8fafc; border-right: 1px solid #e2e8f0; padding: 12mm 9mm; box-sizing: border-box; }
+    .main-panel { width: 66%; padding: 12mm 11mm; box-sizing: border-box; }
+    h1 { font-size: 16pt; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; line-height: 1.1; }
+    .side-title { font-size: 9.4pt; font-weight: 700; text-transform: uppercase; color: #0284c7; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; margin: 14px 0 6px 0; }
+    .main-title { font-size: 10pt; font-weight: 700; text-transform: uppercase; color: #0f172a; border-bottom: 1.5px solid #0284c7; padding-bottom: 2px; margin: 9px 0 4px 0; }
+    .side-item { margin-bottom: 6px; font-size: 8.8pt; }
     """
 
 # -------------------------------------------------------------
@@ -251,7 +252,7 @@ for j in jobs:
     <ul>{bullets_html}</ul>
     """
 
-edu_html = "".join([f"<p style='margin-top: 2px; font-size: 8.6pt;'>• {e}</p>" for e in education])
+edu_html = "".join([f"<p style='margin-top: 3px; font-size: 9.2pt;'>• {e}</p>" for e in education])
 
 if theme_choice == "Modern Two-Column (Sidebar)":
     side_skills = "".join([f"<div class='side-item'>• {c}</div>" for c in competencies])
@@ -265,7 +266,7 @@ if theme_choice == "Modern Two-Column (Sidebar)":
     <div class="page-container">
         <div class="sidebar-panel">
             <h1>{name}</h1>
-            <div class="side-title" style="margin-top: 6px;">Contact</div>
+            <div class="side-title" style="margin-top: 8px;">Contact</div>
             <div class="side-item">{contact_line.replace('|', '<br>')}</div>
             <div class="side-title">Core Competencies</div>
             {side_skills}
@@ -297,7 +298,7 @@ else:
         <p>{summary_text}</p>
 
         <h2>Core Competencies</h2>
-        <ul style="list-style-type: square; margin-top: 1px;">
+        <ul style="list-style-type: square; margin-top: 2px;">
             {comp_html}
         </ul>
 
@@ -311,4 +312,4 @@ else:
     </html>
     """
 
-components.html(resume_html, height=1220, scrolling=True)
+components.html(resume_html, height=1240, scrolling=True)
